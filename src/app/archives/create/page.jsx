@@ -50,7 +50,7 @@ export default function CreateArchive() {
         formData.append("description", description);
         formData.append("author", author);
         formData.append("category_id", categoryId);
-        images.forEach(img => formData.append("images", img));
+        images.forEach(img => formData.append("images[]", img));
         try {
             const res = await fetch("http://127.0.0.1:8000/api/archives/create", {
                 method: "POST",

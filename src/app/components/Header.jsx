@@ -3,21 +3,25 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [search, setSearch] = useState("");
   const [isLogged, setIsLogged] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLogged(!!token); // true si token existe
+    setIsLogged(!!token);
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Recherche :", search);
-    // plus tard tu pourras rediriger ou fetch des résultats
+    const q = search.trim();
+    if (!q) return;
+    router.push(`/search?q=${encodeURIComponent(q)}`);
   };
+
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -45,10 +49,9 @@ export default function Header() {
             onChange={(e) => setSearch(e.target.value)}
             className="w-full px-3 py-1 bg-white rounded-l-md text-black"
           />
-          <button type="submit" className="bg-white px-3 py-1 rounded-r-md">
-            🔍
-          </button>
+          <button type="submit" className="bg-white px-3 py-1 rounded-r-md">🔍</button>
         </form>
+
 
         <div>
           {isLogged ? (
@@ -79,7 +82,7 @@ export default function Header() {
         <Link href="/archives" className="hover:underline">
           Toutes les archives
         </Link>
-        <Link href="/compte" className="hover:underline">
+        <Link href="/account" className="hover:underline">
           Compte
         </Link>
       </nav>

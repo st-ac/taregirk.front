@@ -30,13 +30,19 @@ export default function CategoriesListPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-4xl font-extrabold mb-8 text-center">Nos Catégories</h1>
+      <div className="relative mb-12 text-center">
+      <div className="inline-block px-6 py-2 border-2 border-amber-900 rounded-full bg-amber-100 shadow-md">
+            <h1 className="text-4xl font-extrabold text-amber-900">
+              Catégories
+            </h1>
+          </div>
+          </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {categories.map((cat) => (
           <Link key={cat.id} href={`/categories/${cat.id}`} className="group relative block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
             {cat.image ? (
               <img
-                src={`http://127.0.0.1:8000/uploads/category/${cat.image}`}
+                src={cat.image}
                 alt={cat.title}
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
